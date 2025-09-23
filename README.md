@@ -23,7 +23,7 @@ docker stop java-training
 docker rm java-training
 ```
 
-# ソースコードのコンパイル・実行方法
+## ソースコードのコンパイル・実行方法
 
 - 1ファイルの場合
 
