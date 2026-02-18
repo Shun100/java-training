@@ -17,7 +17,10 @@ public class NonBlockingTCPServer {
       
       // Selector: どのチャネルで何のイベントが発生したか監視する仕組み
       selector = Selector.open();
-      // OP_ACCEPTを監視対象に指定 = クライアントから接続要求が来たら通知してほしい の意味
+      /*
+       * OP_ACCEPTを監視対象に指定 = クライアントから接続要求が来たら通知してほしい の意味
+       * 複数のクライアントから接続要求が来たら、クライアントの数だけ発火する
+       */
       ssc.register(selector, SelectionKey.OP_ACCEPT);
 
       /*
