@@ -30,7 +30,7 @@ public class NonBlockingTCPServer {
         // イベントが発生したソケットチャネルごとに、イベントの内容を判定して適切な処理を行う
         while (keyIterator.hasNext()) {
           SelectionKey key = keyIterator.next();
-          keyIterator.remove();
+          keyIterator.remove(); // キーを削除するのみで、登録したイベントそのものは削除されない
           if (key.isAcceptable()) { // 接続要求イベントの場合
             accept((ServerSocketChannel) key.channel());
           } else if (key.isReadable()) { // データ受信イベントの場合
@@ -69,7 +69,7 @@ public class NonBlockingTCPServer {
       String response = "Hello, 私は" + request + "です";
       responseBuffer = StandardCharsets.UTF_8.encode(response);
       socketChannel.write(responseBuffer);
-      socketChannel.close();
+      socketChannel.close(); // チャネルと閉じると登録したイベントも削除される
     } catch (IOException ioe) {
       throw new RuntimeException(ioe);
     }
