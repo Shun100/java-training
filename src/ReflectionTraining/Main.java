@@ -20,9 +20,12 @@ public class Main {
   public static void main(String[] args) {
 
     try {
+      // クラス名(文字列)からクラスをロードする
       Class<?> clazz = Class.forName("ReflectionTraining.Greeting");
       Constructor<?> constructor = clazz.getDeclaredConstructor();
       Object instance = constructor.newInstance();
+
+      // メソッド名(文字列)からメソッドを呼び出す
       Method method1 = clazz.getMethod("sayHello");
       Object result1 = method1.invoke(instance);
 
@@ -33,7 +36,7 @@ public class Main {
 
       // 引数のあるメソッドの呼び出し
       Method method3 = clazz.getDeclaredMethod("sayMessage", String.class);
-      Object[] params = {"Good Morning"};
+      Object[] params = { "Good Morning" };
       Object result3 = method3.invoke(instance, params);
 
       // BeanからBeanに値を移し替える
@@ -51,7 +54,7 @@ public class Main {
 
       // 氏名が一致していれば各フィールドの値をコピー
       if (Objects.equals(personName, customerName)) {
-        PERSON : for (Field personField : personClazz.getDeclaredFields()) {
+        PERSON: for (Field personField : personClazz.getDeclaredFields()) {
           for (Field customerField : customerClazz.getDeclaredFields()) {
             if (personField.getName().equals(customerField.getName())) {
               personField.setAccessible(true);
@@ -66,7 +69,7 @@ public class Main {
           }
         }
       }
-      
+
     } catch (ClassNotFoundException e) {
       System.err.println("class not found");
     } catch (NoSuchMethodException e) {
@@ -76,8 +79,6 @@ public class Main {
     } catch (NoSuchFieldException e) {
       System.err.println("field not found");
     }
-
-
 
   }
 }

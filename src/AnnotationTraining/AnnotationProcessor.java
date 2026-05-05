@@ -9,15 +9,16 @@ public class AnnotationProcessor {
   /**
    * 文字列の長さチェック
    * <p>
-   * 受け取ったインスタンスに対し、そのインスタンスが持つ各フィールに対して@MaxLengthアノテーションが付与されているかチェックする。
-   * 付与されていれば、フィールドにセットされた文字列の長さと、アノテーションの属性値を比較して長さチェックを行う。
+   * 受け取ったインスタンスに対し、そのインスタンスが持つ各フィールドに対して@MaxLengthアノテーションの有無をチェックする
+   * 付与されていれば、フィールドにセットされた文字列の長さと、アノテーションの属性値を比較して長さチェックを行う
    * </p>
+   * 
    * @param Object object - 長さチェックを行う対象のインスタンス
    */
   public static void checkMaxLength(Object object) {
     // インスタンスが持つフィールドの一覧を取得
     List<Field> fieldList = new ArrayList<>(
-      Arrays.asList(object.getClass().getDeclaredFields()));
+        Arrays.asList(object.getClass().getDeclaredFields()));
 
     for (Field field : fieldList) {
       MaxLength fieldAnnotation = field.getAnnotation(MaxLength.class);
@@ -26,7 +27,7 @@ public class AnnotationProcessor {
       if (fieldAnnotation == null) {
         continue;
       }
-      
+
       try {
         field.setAccessible(true);
         String str = (String) field.get(object);
